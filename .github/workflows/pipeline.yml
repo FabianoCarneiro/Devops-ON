@@ -94,8 +94,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pre
-    needs: publish
-    if: startWith(github.ref,'release')
+    needs: deploy-STG
+    if: startWith(github.ref,'release') == true
     steps:
       - name: Deploy 
         shell: bash
