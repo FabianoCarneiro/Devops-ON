@@ -90,12 +90,13 @@ jobs:
         run: |
           echo "Deploy STG"
           
+
   deploy-Pre:
     runs-on: ubuntu-latest
+    if: startWith(github.ref,'release') == true
     environment:
       name: pre
     needs: deploy-STG
-    if: startWith(github.ref,'release') == true
     steps:
       - name: Deploy 
         shell: bash
