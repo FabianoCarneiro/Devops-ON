@@ -83,6 +83,7 @@ jobs:
     environment:
       name: pre
     needs: publish
+    if: github.ref == 'refs/heads/develop'
     steps:
       - name: Deploy 
         shell: bash
