@@ -81,7 +81,7 @@ jobs:
   deploy-STG:
     runs-on: ubuntu-latest
     environment:
-      name: pre
+      name: stg
     needs: publish
     if: github.ref == 'refs/heads/develop'
     steps:
@@ -89,3 +89,15 @@ jobs:
         shell: bash
         run: |
           echo "Deploy STG"
+          
+  deploy-Pre:
+    runs-on: ubuntu-latest
+    environment:
+      name: pre
+    needs: publish
+    if: startWith(github.ref,'release')
+    steps:
+      - name: Deploy 
+        shell: bash
+        run: |
+          echo "Deploy PRE"
