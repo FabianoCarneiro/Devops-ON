@@ -93,7 +93,7 @@ jobs:
 
   deploy-Pre:
     runs-on: ubuntu-latest
-    if: startWith(github.ref,'release') == true
+    if: github.ref == 'refs/heads/release'
     environment:
       name: pre
     needs: deploy-STG
