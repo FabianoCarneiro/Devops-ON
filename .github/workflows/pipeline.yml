@@ -77,3 +77,14 @@ jobs:
         run: mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
+          
+  deploy-STG:
+    runs-on: ubuntu-latest
+    environment:
+      name: pre
+    needs: publish
+    steps:
+      - name: Deploy 
+        shell: bash
+        run: |
+          echo "Deploy STG"
