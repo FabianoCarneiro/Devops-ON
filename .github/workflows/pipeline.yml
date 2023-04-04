@@ -98,8 +98,10 @@ jobs:
   deploy-Pre:
     runs-on: ubuntu-latest
     env: 
-      needcustom: publish
-      run: echo ${{ env.needcustom }}
+      NEEDCUSTOM : publish
+      run: echo "$NEEDCUSTOM"
+      
+    # ${{ env.needcustom }}
     if: github.ref == 'refs/heads/release'
     environment:
       name: pre
