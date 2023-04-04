@@ -2,8 +2,7 @@ name: pipeline
 
 on:
   push:
-env: 
-  needcustom: publish
+
   
 jobs:
   build:
@@ -98,6 +97,8 @@ jobs:
     
   deploy-Pre:
     runs-on: ubuntu-latest
+    env: 
+      needcustom: publish
     if: github.ref == 'refs/heads/release'
     environment:
       name: pre
