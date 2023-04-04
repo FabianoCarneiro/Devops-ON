@@ -99,10 +99,11 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       needcustom: publish
+      run: echo ${{ env.needcustom }}
     if: github.ref == 'refs/heads/release'
     environment:
       name: pre
-    needs: ${{ env.needcustom }}
+    needs: publish 
     steps:
       - name: Deploy 
         shell: bash
