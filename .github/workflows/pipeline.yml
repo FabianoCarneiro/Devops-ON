@@ -105,7 +105,7 @@ jobs:
     if: github.ref == 'refs/heads/release'
     environment:
       name: pre
-    needs: publish 
+    needs: ${{ env.NEEDCUSTOM }} 
     steps:
       - name: Deploy 
         shell: bash
