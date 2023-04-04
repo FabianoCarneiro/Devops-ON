@@ -2,10 +2,14 @@ name: pipeline
 
 on:
   push:
+env: 
+  needcustom: publish
   
 jobs:
   build:
     runs-on: ubuntu-latest
+
+        
     steps:
     - uses: actions/checkout@v2
       with:
@@ -83,6 +87,7 @@ jobs:
     environment:
       name: stg
     needs: publish
+    
     if: github.ref == 'refs/heads/develop'
     steps:
       - name: Deploy 
@@ -90,13 +95,13 @@ jobs:
         run: |
           echo "Deploy STG"
           
-
+    
   deploy-Pre:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/release'
     environment:
       name: pre
-    needs: publish
+    needs: ${{ env.needcustom }}
     steps:
       - name: Deploy 
         shell: bash
