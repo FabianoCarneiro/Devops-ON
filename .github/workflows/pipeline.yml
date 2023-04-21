@@ -97,8 +97,6 @@ jobs:
     
   deploy-Pre:
     runs-on: ubuntu-latest
-    env: 
-      NEEDCUSTOM : publish
 
     if: github.ref == 'refs/heads/release'
     environment:
@@ -112,12 +110,10 @@ jobs:
           
   deploy-Prod:
     runs-on: ubuntu-latest
-    env: 
-      NEEDCUSTOM : publish
 
     if: github.ref == 'refs/heads/main'
     environment:
-      name: pre
+      name: prod
     needs: publish
     steps:
       - name: Deploy 
