@@ -28,7 +28,7 @@ jobs:
         path: target/site/jacoco/
     
     - name: Package
-      run: mvn test  
+      run: mvn package  
 
   code-analisys:
     runs-on: ubuntu-latest
