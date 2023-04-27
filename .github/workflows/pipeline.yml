@@ -61,25 +61,28 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=FabianoCarneiro_150GTI
     
-    - name: SonarCloud Scan
-      uses: Sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-      with:
-        args:
-           -Dsonar.projectKey=FabianoCarneiro_150GTI
-           -Dsonar.organization=fabianocarneiro
+#    - name: SonarCloud Scan
+#      uses: Sonarsource/sonarcloud-github-action@master
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+#      with:
+#        args:
+#           -Dsonar.projectKey=FabianoCarneiro_150GTI
+#           -Dsonar.organization=fabianocarneiro
 
     - name: Get Quality Gate status
       id: sonarcloud-status
       uses: sonarsource/sonarcloud-github-action@master
       with:
         action: 'status'
+        args:           
+          -Dsonar.projectKey=FabianoCarneiro_150GTI
+          -Dsonar.organization=fabianocarneiro
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
+    
     - name: Print Quality Gate status
       run: echo "Quality Gate status is ${{ steps.sonarcloud-status.outputs.status }}"
    
