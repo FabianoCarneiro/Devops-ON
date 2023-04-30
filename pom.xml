@@ -10,13 +10,13 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.0.2.1-SNAPSHOT</version>
+	<version>0.0.2.5-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>11</java.version>
-		<sonar.organization>fabianocarneiro</sonar.organization>
+		<sonar.organization>devopsfiap</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 

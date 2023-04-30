@@ -59,21 +59,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=FabianoCarneiro_150GTI
-    
-#    - name: SonarCloud Scan
-#      uses: Sonarsource/sonarcloud-github-action@master
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-#      with:
-#        args:
-#           -Dsonar.projectKey=FabianoCarneiro_150GTI
-#           -Dsonar.organization=fabianocarneiro
 
-    - name: Print Quality Gate status
-      run: echo "Quality Gate status is ${{ steps.sonarcloud-status.outputs.status }}"
-   
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Devops-Fiap
+               
+
   publish:
     runs-on: ubuntu-latest
     needs: code-analisys   
