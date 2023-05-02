@@ -39,20 +39,6 @@ jobs:
         fetch-depth: 0
         
     - run: mvn -B package -DskipTests --file pom.xml 
-    
-    - name: Generate JaCoCo Badge
-      id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.0.1
-    - name: Log coverage percentage
-      run: |
-        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"    
-    
-    - name: Upload JaCoCo coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: jacoco-report
-        path: target/site/jacoco/
         
   code-analisys:
     runs-on: ubuntu-latest
