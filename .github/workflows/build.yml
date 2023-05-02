@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - Devops-Fiap-ON
 
 
 jobs:
