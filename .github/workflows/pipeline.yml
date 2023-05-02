@@ -8,7 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-        
     steps:
     - uses: actions/checkout@v3
       with:
@@ -48,12 +47,6 @@ jobs:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
-    #- name: Cache Maven packages
-     # uses: actions/cache@v1
-     # with:
-     #   path: ~/.m2
-     #   key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-     #   restore-keys: ${{ runner.os }}-m2
         
     - name: Build and analyze
       env:
@@ -121,4 +114,32 @@ jobs:
       - name: Deploy 
         shell: bash
         run: |
-          echo "Deploy PROD"          
+          echo "Deploy PROD"       
+          
+  deploy-aws:
+    #Depends on build's job
+    needs: publish  
+    name: Deploy-aws
+    #Run on Ubuntu using the latest version
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Download JAR
+        #Download the artifact which was uploaded in the build's job
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact
+      #Deploy the artifact (JAR) into AWS Beanstalk
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v13
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          use_existing_version_if_available: false
+          application_name: spring-boot-deploy
+          environment_name: Springbootdeploy-env
+          version_label: ${{github.SHA}}
+          region: us-east-1
+          deployment_package: demo-0.0.2.6-SNAPSHOT-SNAPSHOT.jar          
