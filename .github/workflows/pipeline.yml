@@ -78,11 +78,11 @@ jobs:
         name: artifact
         #From this path
         path: demo-0.0.2.7-SNAPSHOT.jar 
-        working-directory: ./target/
+        working-directory: target/
         
     - name: Display structure of downloaded files
       run: ls -R
-      working-directory: ./target/
+      working-directory: target/
         
     #permissions:
     #  contents: read
