@@ -29,20 +29,9 @@ jobs:
         name: jacoco-report
         path: target/site/jacoco/
         
-  build:
-    runs-on: ubuntu-latest
-    needs: unit-test
-    
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        
-    - run: mvn -B package -DskipTests --file pom.xml 
-        
   code-analisys:
     runs-on: ubuntu-latest
-    needs: build
+    needs: unit-test
     
     steps:
     - uses: actions/checkout@v3
@@ -65,10 +54,21 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Devops-Fiap
-               
+    
+    
+  build:
+    runs-on: ubuntu-latest
+    needs: code-analisys
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - run: mvn -B package -DskipTests --file pom.xml      
+    
   publish:
     runs-on: ubuntu-latest
-    needs: build #code-analisys
+    needs: build
     steps:
     - name: Display structure of downloaded files
       run: ls -R
