@@ -77,7 +77,12 @@ jobs:
         #Set artifact name
         name: artifact
         #From this path
-        path: /target/demo-0.0.2.7-SNAPSHOT.jar 
+        path: demo-0.0.2.7-SNAPSHOT.jar 
+        working-directory: ./target/
+        
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: ./target/
         
     #permissions:
     #  contents: read
