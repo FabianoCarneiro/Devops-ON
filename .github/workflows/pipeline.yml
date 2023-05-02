@@ -58,7 +58,7 @@ jobs:
                
   publish:
     runs-on: ubuntu-latest
-    needs: code-analisys
+    needs: build #code-analisys
     steps:
     - name: Upload JAR
         #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
@@ -67,7 +67,8 @@ jobs:
         #Set artifact name
         name: artifact
         #From this path
-        path: *.jar
+        path: target/*.jar 
+        
     #permissions:
     #  contents: read
     #  packages: write
