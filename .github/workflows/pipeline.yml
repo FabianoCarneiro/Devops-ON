@@ -149,7 +149,7 @@ jobs:
         #Download the artifact which was uploaded in the build's job
         uses: actions/download-artifact@v2
         with:
-          name: artifact
+          name: demo
       #Deploy the artifact (JAR) into AWS Beanstalk
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v13
