@@ -70,6 +70,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build #code-analisys
     steps:
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: target/
+      
     - name: Upload JAR
         #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
       uses: actions/upload-artifact@v2
@@ -77,12 +81,8 @@ jobs:
         #Set artifact name
         name: artifact
         #From this path
-        path: demo-0.0.2.7-SNAPSHOT.jar 
-        working-directory: target/
-        
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: target/
+        path: ./target/demo-0.0.2.7-SNAPSHOT.jar 
+      
         
     #permissions:
     #  contents: read
