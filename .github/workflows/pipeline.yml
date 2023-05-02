@@ -157,7 +157,9 @@ jobs:
         with:
           name: artifact
           path: target/
-      #Deploy the artifact (JAR) into AWS Beanstalk
+        #Deploy the artifact (JAR) into AWS Beanstalk
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
@@ -169,4 +171,4 @@ jobs:
           environment_name: DevopsFiap-env-1
           version_label: ${{github.SHA}}
           region: us-east-1
-          deployment_package: demo-0.0.2.7-SNAPSHOT.jar          
+          deployment_package: demo-0.0.2.7-SNAPSHOT.jar        
