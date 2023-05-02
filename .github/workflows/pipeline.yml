@@ -96,7 +96,7 @@ jobs:
           
       - name: Display structure of downloaded files
         run: ls -R
-        #working-directory: target/
+        working-directory: ./target/
           
   deploy-STG:
     runs-on: ubuntu-latest
