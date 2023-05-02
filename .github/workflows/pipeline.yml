@@ -78,7 +78,7 @@ jobs:
         #Set artifact name
         name: artifact
         #From this path
-        path: target/
+        path: target
         
     #permissions:
     #  contents: read
