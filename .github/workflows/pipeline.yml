@@ -162,4 +162,4 @@ jobs:
           environment_name: Springbootdeploy-env
           version_label: ${{github.SHA}}
           region: us-east-1
-          deployment_package: demo-0.0.2.6-SNAPSHOT-SNAPSHOT.jar          
+          deployment_package: demo-0.0.2.7-20230502.043852.jar          
