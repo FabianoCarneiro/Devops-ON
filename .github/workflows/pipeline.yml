@@ -72,7 +72,7 @@ jobs:
     steps:
     - name: Display structure of downloaded files
       run: ls -R
-      working-directory: target/
+      #working-directory: target/
       
     - name: Upload JAR
         #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
