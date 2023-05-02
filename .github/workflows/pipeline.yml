@@ -69,30 +69,30 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: build #code-analisys
-    steps:
-    - name: Upload JAR
-        #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
-      uses: actions/upload-artifact@v2
-      with:
-        #Set artifact name
-        name: artifact
-        #From this path
-        path: /target/demo-0.0.2.7-SNAPSHOT.jar
-        
-    #permissions:
-    #  contents: read
-    #  packages: write
     #steps:
-    #  - uses: actions/checkout@v3
-    #  - uses: actions/setup-java@v3
-    #    with:
-    #      java-version: '11'
-    #      distribution: 'adopt'
-    #      package: '*.jar'
-    #  - name: Publish package
-    #    run: mvn --batch-mode deploy
-    #    env:
-    #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
+    #- name: Upload JAR
+    #    #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    #Set artifact name
+    #    name: artifact
+    #    #From this path
+    #    path: /target/demo-0.0.2.7-SNAPSHOT.jar
+        
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      #- uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          package: '*.jar'
+      - name: Publish package
+        run: mvn clean install #mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
           
   deploy-STG:
     runs-on: ubuntu-latest
