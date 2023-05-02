@@ -67,7 +67,7 @@ jobs:
         #Set artifact name
         name: artifact
         #From this path
-        path: target/demo-0.0.2.6-SNAPSHOT-SNAPSHOT.jar
+        path: demo-0.0.2.6-SNAPSHOT-SNAPSHOT.jar
     #permissions:
     #  contents: read
     #  packages: write
