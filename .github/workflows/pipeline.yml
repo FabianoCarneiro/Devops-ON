@@ -94,6 +94,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           
+      - name: Display structure of downloaded files
+        run: ls -R
+        #working-directory: target/
+          
   deploy-STG:
     runs-on: ubuntu-latest
     environment:
@@ -145,9 +149,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     
     steps:
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: target/
+
       - name: Download JAR
         #Download the artifact which was uploaded in the build's job
         uses: actions/download-artifact@v3
