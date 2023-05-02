@@ -57,6 +57,7 @@ jobs:
     
     
   build:
+    name: Build Archive
     runs-on: ubuntu-latest
     needs: unit-test #code-analisys
     
@@ -102,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: stg
-    needs: publish
+    needs: build
     
     if: github.ref == 'refs/heads/develop'
     steps:
@@ -118,7 +119,7 @@ jobs:
     if: github.ref == 'refs/heads/release'
     environment:
       name: pre
-    needs: publish
+    needs: build
 
     steps:
       - name: Deploy 
@@ -132,7 +133,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     environment:
       name: prod
-    needs: publish
+    needs: build
 
     steps:
       - name: Deploy 
@@ -142,7 +143,7 @@ jobs:
           
   deploy-aws:
     #Depends on build's job
-    needs: publish  
+    needs: build  
     name: Deploy-aws
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
