@@ -1,13 +1,26 @@
-name: Snyk
+name: Snyk Container
 on: push
 jobs:
-  security:
+  snyk:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven-3-jdk-11@master
-        env:
-          SNYK_TOKEN: ab5f1850-30fc-4112-a60e-2c169e0c1129
-        with:
-          args: --severity-threshold=high
+    - uses: actions/checkout@v2
+    - name: Build a Docker image
+      run: docker build -t your/image-to-test .
+    - name: Run Snyk to check Docker image for vulnerabilities
+      # Snyk can be used to break the build when it detects vulnerabilities.
+      # In this case we want to upload the issues to GitHub Code Scanning
+      continue-on-error: true
+      uses: snyk/actions/docker@master
+      env:
+        # In order to use the Snyk Action you will need to have a Snyk API token.
+        # See https://docs.snyk.io/integrations/ci-cd-integrations/github-actions-integration#getting-your-snyk-token
+        # or you can sign up for free at https://snyk.io/login
+        SNYK_TOKEN: ab5f1850-30fc-4112-a60e-2c169e0c1129
+      with:
+        image: your/image-to-test
+        args: --file=Dockerfile
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: snyk.sarif
