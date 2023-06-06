@@ -22,4 +22,4 @@ jobs:
         with:
           languages: java
              config-file: ./.github/codeql/codeql-config.yml
-             .github/codeql/codeql-config.yml
+
