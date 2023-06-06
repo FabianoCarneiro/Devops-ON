@@ -1,30 +1,15 @@
-name: "Upload SARIF"
-
-# Run workflow each time code is pushed to your repository and on a schedule.
-# The scheduled workflow runs every Thursday at 15:45 UTC.
-on:
-  push:
-  schedule:
-    - cron: '45 15 * * 4'
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      # required for all workflows
-      security-events: write
-      # only required for workflows in private repositories
-      actions: read
-      contents: read
-    steps:
-      # This step checks out a copy of your repository.
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          # Path to SARIF file relative to the root of the repository
-          sarif_file: results.sarif
-          # Optional category for the results
-          # Used to differentiate multiple results for one commit
-          category: my-analysis-tool
+name: "CodeQL config"
+queries: 
+  - name: Run custom queries
+    uses: ./queries
+  # Run all extra query suites, both because we want to
+  # and because it'll act as extra testing. This is why
+  # we include both even though one is a superset of the
+  # other, because we're testing the parsing logic and
+  # that the suites exist in the codeql bundle.
+  - uses: security-experimental
+  - uses: security-extended
+  - uses: security-and-quality
+paths-ignore:
+  - tests
+  - lib
