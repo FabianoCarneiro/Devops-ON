@@ -167,8 +167,8 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          # aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           use_existing_version_if_available: true
-          application_name: DevopsFiap
-          environment_name: DevopsFiap-env-1
+          application_name: DevopsFiap-0n
+          environment_name: DevopsFiap-0n-env
           version_label: ${{github.SHA}}
           region: us-east-1
           deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar        
