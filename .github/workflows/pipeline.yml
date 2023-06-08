@@ -171,4 +171,4 @@ jobs:
           environment_name: DevopsFiap-0n-env
           version_label: ${{github.SHA}}
           region: us-east-1
-          deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar        
+         # deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar        
