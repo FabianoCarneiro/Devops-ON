@@ -78,26 +78,6 @@ jobs:
         name: artifact
         #From this path
         path: ./target/demo-0.0.2.7-SNAPSHOT.jar 
-      
-        
-    #permissions:
-    #  contents: read
-    #  packages: write
-    #steps:
-    #  - uses: actions/checkout@v3
-    #  - uses: actions/setup-java@v3
-    #    with:
-    #      java-version: '11'
-    #      distribution: 'adopt'
-    #      package: '*.jar'
-    #  - name: Publish package
-    #    run: mvn --batch-mode -DskipTests deploy
-    #    env:
-    #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-          
-     # - name: Display structure of downloaded files
-     #   run: ls -R
-     #   working-directory: ./target/
           
   deploy-STG:
     runs-on: ubuntu-latest
@@ -166,6 +146,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          # aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          wait_for_environment_recovery: 90
           use_existing_version_if_available: true
           application_name: DevopsFiap-0n
           environment_name: DevopsFiap-0n-env-1
