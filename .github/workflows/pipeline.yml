@@ -127,6 +127,7 @@ jobs:
     if: github.ref == 'refs/heads/main'    
     environment:
       name: AZURE-PRO        
+      url: https://devopsfiap-on-app.azurewebsites.net/
     steps:
        - name: Download JAR
          uses: actions/download-artifact@v3
