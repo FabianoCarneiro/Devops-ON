@@ -126,13 +126,20 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'    
     environment:
-      name: AZURE-PRO  
+      name: AZURE-PRO        
     steps:
-      - uses: azure/webapps-deploy@v2
-        with:
-          app-name: devopsfiap-on-app
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} 
-          package: '${{ github.workspace }}/target/*.jar'
+       - name: Download JAR
+        #Download the artifact which was uploaded in the build's job
+       - uses: actions/download-artifact@v3
+         with:
+           name: artifact
+           path: target/  
+       - name: Download JAR    
+       - uses: azure/webapps-deploy@v2
+         with:
+            app-name: devopsfiap-on-app
+            publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} 
+            package: '${{ github.workspace }}/target/*.jar'
       
   deploy-aws:
     #Depends on build's job
