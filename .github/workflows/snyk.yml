@@ -1,5 +1,6 @@
 name: Snyk
 on: 
+  workflow_dispatch:
   push:
     branches: [ main,realese ]
   pull_request:
