@@ -1,29 +1,44 @@
-name: Snyk
-on: 
+name: Snyk Security
+
+on:
   push:
-    branches: ['*']
+    branches: ["main" ]
   pull_request:
-    branches: ['*']  
+    branches: ["main"]
+
+permissions:
+  contents: read
+
 jobs:
-  security:
+  snyk:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
-        continue-on-error: true # To make sure that SARIF upload gets called
+      - uses: actions/checkout@v3
+      - name: Set up Snyk CLI to check for security issues
+        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
-        with:
-          args: --sarif-file-output=snyk.sarif
-      #- name: Upload result to GitHub Code Scanning
-      #  uses: github/codeql-action/upload-sarif@v2
-      #  with:
-      #    sarif_file: snyk.sarif
-          
-      #- name: Initialize CodeQL
-      #  uses: github/codeql-action/init@v2
-      #  with:
-      #    languages: java
-      #       config-file: ./.github/codeql/codeql-config.yml
 
+      - name: Snyk Code test
+        run: snyk code test --sarif > snyk-code.sarif # || true
+
+      - name: Snyk Open Source monitor
+        run: snyk monitor --all-projects
+
+      - name: Snyk IaC test and report
+        run: snyk iac test --report # || true
+
+      - name: Build a Docker image
+        run: docker build -t your/image-to-test .
+      - name: Snyk Container monitor
+        run: snyk container monitor your/image-to-test --file=Dockerfile
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk-code.sarif
