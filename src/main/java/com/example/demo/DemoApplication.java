@@ -53,7 +53,7 @@ public class DemoApplication {
 	}
 	
 	@GetMapping("/aws")
-	String turmav2(){
+	String awsEnv(){
 		return "DEVOPS FIAP - Versão AWS";
 	}
 }	
