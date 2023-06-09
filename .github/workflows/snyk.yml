@@ -15,8 +15,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
-          args: --sarif-file-output=snyk.sarif
-		  
+          args: --sarif-file-output=snyk.sarif  
       - name: Snyk IaC test and report
         run: snyk iac test --report # || true
       - name: Build a Docker image
