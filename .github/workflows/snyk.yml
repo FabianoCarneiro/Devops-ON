@@ -22,7 +22,7 @@ jobs:
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
 
         env:
-          SNYK_TOKEN: "ab5f1850-30fc-4112-a60e-2c169e0c1129"
+          SNYK_TOKEN: "ee3f5a48-f938-45cb-a3ef-63ee5143a564"
 
       #- name: Snyk Code test
       #  run: snyk code test --sarif > snyk-code.sarif # || true
