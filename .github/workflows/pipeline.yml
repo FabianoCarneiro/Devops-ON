@@ -129,12 +129,11 @@ jobs:
       name: AZURE-PRO        
     steps:
        - name: Download JAR
-        #Download the artifact which was uploaded in the build's job
        - uses: actions/download-artifact@v3
          with:
            name: artifact
            path: target/  
-       - name: Download JAR    
+       - name: DeployAzure   
        - uses: azure/webapps-deploy@v2
          with:
             app-name: devopsfiap-on-app
@@ -142,20 +141,15 @@ jobs:
             package: '${{ github.workspace }}/target/*.jar'
       
   deploy-aws:
-    #Depends on build's job
     needs: build  
     name: Deploy-aws
-    #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
     environment:
       name: AWS-PRO
       url: http://devopsfiap-0n-env-1.eba-a9357rgy.us-east-1.elasticbeanstalk.com/
-    
     steps:
       - name: Download JAR
-        #Download the artifact which was uploaded in the build's job
         uses: actions/download-artifact@v3
         with:
           name: artifact
