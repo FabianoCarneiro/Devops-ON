@@ -1,9 +1,9 @@
 name: Snyk
 on: 
   push:
-    branches: ['*']
+    branches: ['main,realese']
   pull_request:
-    branches: ['*']  
+    branches: ['main,realese']  
 jobs:
   security:
     runs-on: ubuntu-latest
