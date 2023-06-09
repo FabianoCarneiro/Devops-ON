@@ -129,8 +129,11 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     
+    environment:
+      name: AWS-PRO
+      url: http://devopsfiap-0n-env-1.eba-a9357rgy.us-east-1.elasticbeanstalk.com/
+    
     steps:
-
       - name: Download JAR
         #Download the artifact which was uploaded in the build's job
         uses: actions/download-artifact@v3
