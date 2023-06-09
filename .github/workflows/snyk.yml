@@ -17,9 +17,9 @@ jobs:
       #  with:
       #    sarif_file: snyk.sarif
           
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: java
-             config-file: ./.github/codeql/codeql-config.yml
+      #- name: Initialize CodeQL
+      #  uses: github/codeql-action/init@v2
+      #  with:
+      #    languages: java
+      #       config-file: ./.github/codeql/codeql-config.yml
 
