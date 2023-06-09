@@ -19,6 +19,11 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 
 	}
+       
+	@GetMapping("/")
+        public String healthCheck(){
+                return "HEALTH CHECK OK!";
+        }
 
 	@GetMapping("/secured")
 	public Object secured(@LoggedInUser AppUser appUser){
