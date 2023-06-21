@@ -48,12 +48,12 @@ public class DemoApplication {
 	}
 	
 	@GetMapping("/fiap")
-	String turma(){
+	String Fiap(){
 		return "DEVOPS FIAP - VERSAO 2.1";
 	}
 	
-	@GetMapping("/fiap")
-	String turma(){
+	@GetMapping("/Postechfiap")
+	String Postech(){
 		return "Postech FIAP - VERSAO 2.1";
 	}	
 }	
