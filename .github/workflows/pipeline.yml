@@ -23,7 +23,7 @@ jobs:
             fetch-depth: 0        
        - name: smoketest 
          run: |
-            ./src/scripts/smoketeste.sh
+            ./src/scripts/smoketest.sh
             ls 
             pwd
          shell: bash        
