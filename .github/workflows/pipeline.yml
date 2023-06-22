@@ -13,7 +13,15 @@ jobs:
     
     - name: Package
       run: mvn package  
-
+  
+  smoketest:
+    runs-on: ubuntu-latest
+    steps:    
+      - name: smoketest 
+        shell: bash
+        run: |
+          sh 'chmod +x ./jenkins/scripts/test.sh'            
+          sh './jenkins/scripts/test.sh'
    
   publish:
     runs-on: ubuntu-latest
