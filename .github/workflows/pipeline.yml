@@ -23,9 +23,8 @@ jobs:
             fetch-depth: 0        
        - name: smoketest 
          run: |
+            chmod +x ./src/scripts/smoketest.sh
             ./src/scripts/smoketest.sh
-            ls 
-            pwd
          shell: bash        
   publish:
     runs-on: ubuntu-latest
