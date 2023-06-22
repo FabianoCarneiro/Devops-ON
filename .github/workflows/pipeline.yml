@@ -16,11 +16,7 @@ jobs:
   
   smoketest:
     runs-on: ubuntu-latest
-    steps:    
-       - name: checkout
-         uses: actions/checkout@v2
-         with:
-            fetch-depth: 0        
+    steps:        
        - name: smoketest 
          run: |
             chmod +x ./src/scripts/smoketest.sh
