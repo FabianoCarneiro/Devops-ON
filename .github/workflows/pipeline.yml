@@ -19,7 +19,7 @@ jobs:
     steps:    
       - name: smoketest 
         run: |
-           run:  ./.github/src/scripts/smoketeste.sh
+           ./.github/src/scripts/smoketeste.sh
         shell: bash
         
   publish:
