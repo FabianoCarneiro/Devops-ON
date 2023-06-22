@@ -6,14 +6,12 @@ on:
   pull_request:
     branches: [ main,realese ]  
 jobs:
-  security:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
-        #continue-on-error: true # To make sure that SARIF upload gets called
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run driftctl
+        uses: snyk/driftctl-action@v1
         with:
-          command: monitor
+          version: 0.38.2
