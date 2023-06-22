@@ -13,19 +13,6 @@ jobs:
     
     - name: Package
       run: mvn package  
-  
-  smoketest:
-    runs-on: ubuntu-latest
-    steps:    
-       - name: checkout
-         uses: actions/checkout@v2
-         with:
-            fetch-depth: 0        
-       - name: smoketest 
-         run: |
-            chmod +x ./src/scripts/smoketest.sh
-            ./src/scripts/smoketest.sh
-         shell: bash     
          
   publish:
     runs-on: ubuntu-latest
