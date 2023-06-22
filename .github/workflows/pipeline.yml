@@ -18,11 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:    
       - name: smoketest 
-        shell: bash
         run: |
-          sh 'chmod +x ./jenkins/scripts/test.sh'            
-          sh './jenkins/scripts/test.sh'
-   
+           run: ./src/scripts/smoketeste.sh
+        shell: bash
+        
   publish:
     runs-on: ubuntu-latest
     needs: build
