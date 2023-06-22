@@ -17,13 +17,16 @@ jobs:
   smoketest:
     runs-on: ubuntu-latest
     steps:    
-      - name: smoketest 
-        run: |
-           ./src/scripts/smoketeste.sh
-           ls 
-           pwd
-        shell: bash
-        
+       - name: checkout
+         uses: actions/checkout@v2
+         with:
+            fetch-depth: 0        
+       - name: smoketest 
+         run: |
+            ./src/scripts/smoketeste.sh
+            ls 
+            pwd
+         shell: bash        
   publish:
     runs-on: ubuntu-latest
     needs: build
