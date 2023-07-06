@@ -45,7 +45,6 @@ jobs:
         shell: bash
         run: |
           echo "Deploy STG"
-          ls
           sh 'src/main/scripts/smoketest.sh'
         
   deploy-Pre:
