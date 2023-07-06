@@ -45,7 +45,7 @@ jobs:
         run: |
           echo "Deploy STG"
           ls
-          sh 'smoketest.sh'
+          sh 'src/main/scripts/smoketest.sh'
         
   deploy-Pre:
     runs-on: ubuntu-latest
