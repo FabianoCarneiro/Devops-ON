@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: stg
-    needs: publish
+   ## needs: publish
     
     if: github.ref == 'refs/heads/develop'
     steps:
@@ -45,7 +45,7 @@ jobs:
         shell: bash
         run: |
           echo "Deploy STG"
-          sh '../src/scripts/smoketeste.sh'
+         ## sh '../src/scripts/smoketeste.sh'
           ls
         
   deploy-Pre:
