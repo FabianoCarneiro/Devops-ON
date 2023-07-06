@@ -37,7 +37,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: stg
-      needs: publish
     
     if: github.ref == 'refs/heads/develop'
     steps:
