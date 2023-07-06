@@ -1,1 +1,1 @@
-echo "Deploy PRE"
+echo 'Deploy PRE'
