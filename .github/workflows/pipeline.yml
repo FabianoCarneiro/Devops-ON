@@ -30,3 +30,54 @@ jobs:
         run: mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
+          
+  deploy-azure:
+    needs: build  
+    name: Deploy-azure
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'    
+    environment:
+      name: AZURE-PRO        
+    steps:
+       - name: Download JAR
+         uses: actions/download-artifact@v3
+         with:
+           name: artifact
+           path: target/  
+       - name: DeployAzure   
+         uses: azure/webapps-deploy@v2
+         with:
+            app-name: devopsfiap-on-app
+            publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} 
+            package: '${{ github.workspace }}/target/*.jar'
+      
+  deploy-aws:
+    needs: build  
+    name: Deploy-aws
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: AWS-PRO
+      url: http://devopsfiap-0n-env-1.eba-a9357rgy.us-east-1.elasticbeanstalk.com/
+    steps:
+      - name: Download JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: target/
+        #Deploy the artifact (JAR) into AWS Beanstalk
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         # aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          wait_for_environment_recovery: 90
+          use_existing_version_if_available: true
+          application_name: DevopsFiap-0n
+          environment_name: DevopsFiap-0n-env-1
+          version_label: ${{github.SHA}}
+          region: us-east-1
+          deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar        
