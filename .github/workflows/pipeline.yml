@@ -79,8 +79,19 @@ jobs:
         shell: bash
         run: |
           sh 'src/main/scripts/smoketest.sh'
-
-
+          
+  testeIntegrados:
+    runs-on: ubuntu-latest
+    needs: Smoketest
+    
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy 
+        shell: bash
+        run: |
+          sh 'src/main/scripts/testeIntegrado.sh'
+  
   deploy-Pre:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/release'
@@ -92,6 +103,30 @@ jobs:
         shell: bash
         run: |
           echo "Deploy PRE"
+  
+  SmoketestPre:
+    runs-on: ubuntu-latest
+    needs: deploy-Pre
+    
+    if: github.ref == 'refs/heads/release'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy 
+        shell: bash
+        run: |
+          sh 'src/main/scripts/smoketest.sh'          
+          
+  testeFuncionais:
+    runs-on: ubuntu-latest
+    needs: SmoketestPre
+    
+    if: github.ref == 'refs/heads/release'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy 
+        shell: bash
+        run: |
+          sh 'src/main/scripts/testeFuncionais.sh'          
           
   deploy-Prod:
     runs-on: ubuntu-latest
