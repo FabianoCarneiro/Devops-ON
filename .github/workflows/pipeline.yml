@@ -25,9 +25,10 @@ jobs:
       with:
         name: jacoco-report
         path: target/site/jacoco/
+        
   code-analisys:
     runs-on: ubuntu-latest
-    needs: build
+    needs: unit-test
     
     steps:
     - uses: actions/checkout@v2
@@ -56,11 +57,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Devops-Fiap
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Devops-Fiap-ON
        
   build:
     runs-on: ubuntu-latest
-    needs: unit-test
+    needs: code-analisys
     steps:
     - uses: actions/checkout@v2
       with:
