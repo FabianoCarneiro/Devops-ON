@@ -54,6 +54,6 @@ public class DemoApplication {
 	
 	@GetMapping("/Postechfiap")
 	String Postech(){
-		return "Postech FIAP - VERSAO 3.0";
+		return "Postech FIAP - VERSAO 4.0";
 	}	
 }	
