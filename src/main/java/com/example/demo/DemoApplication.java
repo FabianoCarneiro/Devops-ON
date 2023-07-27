@@ -47,13 +47,10 @@ public class DemoApplication {
 		return new Date().toString();
 	}
 	
-	@GetMapping("/fiap")
+	@GetMapping("/ufscar")
 	String Fiap(){
-		return "DEVOPS FIAP - VERSAO 2.1";
+		return "DEVOPS UFSCAR";
 	}
 	
-	@GetMapping("/Postechfiap")
-	String Postech(){
-		return "Postech FIAP - VERSAO 4.0";
-	}	
+
 }	
