@@ -1,3 +1,3 @@
 # Devops
 
-Versao 2.0
+Versao 2.1
