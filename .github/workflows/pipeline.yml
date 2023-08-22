@@ -63,7 +63,9 @@ jobs:
        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
          QUALITY_GATE_STATUS=$(curl -s "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Devops-Fiap-ON" -H "Authorization: Basic $SONAR_TOKEN" | jq -r '.projectStatus.status')
-         echo "QG"+ $QUALITY_GATE_STATUS
+         if [ "$QUALITY_GATE_STATUS" = "OK"; then
+           echo "QG OK"
+         fi
   build:
     runs-on: ubuntu-latest
     needs: code-analisys
