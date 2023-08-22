@@ -58,7 +58,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Devops-Fiap-ON
-       
+    - name: Check Quality Gate
+      env: 
+       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+         QUALITY_GATE_STATUS=$(curl -s "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Devops-Fiap-ON" -H "Authorization: Basic $SONAR_TOKEN" | jq -r '.projectStatus.status')
+         if [ "$QUALITY_GATE_STATUS" = "OK" ]; then
+           echo "QG OK"
+         fi
   build:
     runs-on: ubuntu-latest
     needs: code-analisys
