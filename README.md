@@ -1,3 +1,3 @@
 # Devops
 
-Versao develop
+Versao develop 1.0
