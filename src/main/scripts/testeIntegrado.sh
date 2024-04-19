@@ -1,1 +1,3 @@
 echo 'EXECUTANDO TESTES DE INTEGRACAO'
+
+return 1
