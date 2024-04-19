@@ -1,5 +1,5 @@
 # Devops
 
 
-Versao develop 1.2.2
+Versao develop 1.2
 
