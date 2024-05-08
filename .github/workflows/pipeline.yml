@@ -145,7 +145,7 @@ jobs:
     needs: build  
     name: Deploy-aws
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+   #if: github.ref == 'refs/heads/main'
     environment:
       name: AWS-PRO
       url: http://devopsfiap-0n-env-1.eba-a9357rgy.us-east-1.elasticbeanstalk.com/
