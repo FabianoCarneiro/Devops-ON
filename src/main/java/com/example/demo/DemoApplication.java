@@ -53,7 +53,7 @@ public class DemoApplication {
 	}
 	
 	@GetMapping("/autoglass")
-	String turma(){
+	String autoglass(){
 		return "Pagina da Autoglass";
 	}
 
