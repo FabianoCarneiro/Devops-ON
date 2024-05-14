@@ -52,5 +52,9 @@ public class DemoApplication {
 		return "Zumbi";
 	}
 	
+	@GetMapping("/autoglass")
+	String turma(){
+		return "Pagina da Autoglass";
+	}
 
 }	
