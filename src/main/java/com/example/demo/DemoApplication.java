@@ -54,7 +54,7 @@ public class DemoApplication {
 	
 	@GetMapping("/autoglass")
 	String autoglass(){
-		return "Pagina da Autoglass";
+		return "https://www.autoglassonline.com.br/";
 	}
 
 }	
