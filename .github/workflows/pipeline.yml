@@ -215,8 +215,8 @@ jobs:
          # aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           wait_for_environment_recovery: 90
           use_existing_version_if_available: false
-          application_name: DevopsFiap-0n
-          environment_name: DevopsFiap-0n-env1
+          application_name: DevopsFiap-on
+          environment_name: devopsfiap-on-env1
           version_label: ${{github.SHA}}
           region: us-east-1
           deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar              
