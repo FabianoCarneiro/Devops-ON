@@ -76,7 +76,7 @@ jobs:
         #Set artifact name
         name: artifact
         #From this path
-        path: ./target/demo-0.0.2.7-SNAPSHOT.jar 
+        path: target/demo-0.0.2.7-SNAPSHOT.jar 
           
   deploy-STG:
     runs-on: ubuntu-latest
@@ -133,7 +133,7 @@ jobs:
          uses: actions/download-artifact@v3
          with:
            name: artifact
-           path: .target/  
+           path: target/  
        - name: DeployAzure   
          uses: azure/webapps-deploy@v2
          with:
