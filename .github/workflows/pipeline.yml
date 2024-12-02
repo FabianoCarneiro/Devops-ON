@@ -135,13 +135,13 @@ jobs:
     environment:
       name: AZURE-PRO        
     steps:
-       - name: Display structure of downloaded files
-         run: ls -R
-         working-directory: target/
        - name: Download JAR
          uses: actions/download-artifact@v3
          with:
-           path: target/  
+           path: target/
+       - name: Display structure of downloaded files
+         run: ls -R
+         working-directory: target/
        - name: DeployAzure   
          uses: azure/webapps-deploy@v2
          with:
