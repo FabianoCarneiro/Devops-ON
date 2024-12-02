@@ -82,7 +82,7 @@ jobs:
     - name: Download JAR
       uses: actions/download-artifact@v3
       with:
-        name: demo-0.0.2.7-SNAPSHOT.jar 
+        #name: demo-0.0.2.7-SNAPSHOT.jar 
         path: target/  
           
   deploy-STG:
@@ -138,7 +138,7 @@ jobs:
        - name: Download JAR
          uses: actions/download-artifact@v3
          with:
-           name: artifact
+           #name: artifact
            path: target/  
        - name: DeployAzure   
          uses: azure/webapps-deploy@v2
