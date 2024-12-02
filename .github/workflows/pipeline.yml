@@ -77,7 +77,12 @@ jobs:
         #Set artifact name
         name: artifact
         #From this path
-        path: ./target/demo-0.0.2.7-SNAPSHOT.jar 
+        path: target/demo-0.0.2.7-SNAPSHOT.jar 
+    - name: Download JAR
+      uses: actions/download-artifact@v3
+      with:
+        name: artifact
+        path: target/  
           
   deploy-STG:
     runs-on: ubuntu-latest
@@ -147,7 +152,7 @@ jobs:
     name: Deploy-aws
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
-    #if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     
     steps:
 
