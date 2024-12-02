@@ -75,14 +75,13 @@ jobs:
       uses: actions/upload-artifact@v4.4.0
       with:
         #Set artifact name
-        name: artifact
+        #name: artifact
         #From this path
         #path: target/demo-0.0.2.7-SNAPSHOT.jar 
         path: target/
     - name: Download JAR
       uses: actions/download-artifact@v3
       with:
-        #name: demo-0.0.2.7-SNAPSHOT.jar 
         path: target/  
           
   deploy-STG:
