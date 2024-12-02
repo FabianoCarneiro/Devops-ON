@@ -141,7 +141,7 @@ jobs:
            path: target/
        - name: Display structure of downloaded files
          run: ls -R
-         working-directory: target/
+         working-directory: .
        - name: DeployAzure   
          uses: azure/webapps-deploy@v2
          with:
