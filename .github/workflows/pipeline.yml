@@ -81,7 +81,7 @@ jobs:
     - name: Download JAR
       uses: actions/download-artifact@v3
       with:
-        name: artifact
+        #name: artifact
         path: target/  
           
   deploy-STG:
