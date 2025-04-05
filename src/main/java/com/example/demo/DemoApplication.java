@@ -63,7 +63,7 @@ public class DemoApplication {
 	}
 
 	@GetMapping("/ufscar")
-	String awsEnv(){
+	String ufscarEnv(){
 		return "DEVOPS - Versão UFSCAR";
 	}
 }	
