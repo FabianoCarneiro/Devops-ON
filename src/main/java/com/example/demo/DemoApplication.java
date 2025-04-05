@@ -61,4 +61,9 @@ public class DemoApplication {
 	String awsEnv(){
 		return "DEVOPS FIAP - Versão AWS";
 	}
+
+	@GetMapping("/ufscar")
+	String awsEnv(){
+		return "DEVOPS - Versão UFSCAR";
+	}
 }	
