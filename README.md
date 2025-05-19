@@ -3,6 +3,6 @@
 
 
 
-Versao prod 1.3
+Versao prod 1.0
 
 
