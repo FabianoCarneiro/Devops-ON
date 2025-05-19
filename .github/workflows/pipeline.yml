@@ -200,7 +200,7 @@ jobs:
       url: http://devopsfiap-on-env1.eba-nababm5k.us-east-1.elasticbeanstalk.com/
     steps:
       - name: Download JAR
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: artifact
           path: target/
