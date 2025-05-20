@@ -3,6 +3,6 @@
 
 
 
-Versao dev 1.0
+Versao dev 1.1
 
 
