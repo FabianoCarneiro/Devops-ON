@@ -2,7 +2,7 @@ name: pipeline
 
 on:
   push:
-  
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
