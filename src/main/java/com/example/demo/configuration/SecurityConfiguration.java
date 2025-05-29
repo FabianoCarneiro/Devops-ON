@@ -31,16 +31,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
-    http.headers().disable();
+    // Remova esta linha:
+    // http.headers().disable();
+
+    // Exemplo de customização de headers:
+    http.headers()
+        .frameOptions().sameOrigin()
+        .and()
+        .contentTypeOptions()
+        .and()
+        .xssProtection();
+
     http.httpBasic().authenticationEntryPoint(new AuthenticationEntryPoint(){
-
-      @Override
-      public void commence(HttpServletRequest request, HttpServletResponse response,
-          AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
-
-      }
-      
+        @Override
+        public void commence(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException authException) throws IOException, ServletException {
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        }
     });
 
     http
