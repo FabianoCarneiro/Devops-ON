@@ -38,8 +38,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.headers()
         .frameOptions().sameOrigin()
         .and()
-        .contentTypeOptions()
-        .and()
         .xssProtection();
 
     http.httpBasic().authenticationEntryPoint(new AuthenticationEntryPoint(){
