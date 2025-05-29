@@ -34,11 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Remova esta linha:
     // http.headers().disable();
 
-    // Exemplo de customização de headers:
-    http.headers()
-        .frameOptions().sameOrigin()
-        .and()
-        .xssProtection();
+
+
 
     http.httpBasic().authenticationEntryPoint(new AuthenticationEntryPoint(){
         @Override
