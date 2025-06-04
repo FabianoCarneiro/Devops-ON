@@ -58,7 +58,7 @@ public class DemoApplication {
 	}
 	
 	@GetMapping("/9CLDR")
-	String 9cldr(){
+	String cldr(){
 		return "Turma 9 MBA Cloud";
 	}
 }	
