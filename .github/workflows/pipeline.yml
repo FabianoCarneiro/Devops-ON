@@ -2,221 +2,32 @@ name: pipeline
 
 on:
   push:
-  
+  workflow_dispatch:
 jobs:
-  unit-test:
+  build:
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-      
-    - run: mvn test  
-    - name: Generate JaCoCo Badge
-      id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.0.1
-    - name: Log coverage percentage
-      run: |
-        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"    
-    - name: Upload JaCoCo coverage report
-      uses: actions/upload-artifact@v4.4.0
-      with:
-        name: jacoco-report
-        path: target/site/jacoco/
-        
-  code-analisys:
-    runs-on: ubuntu-latest
-    needs: unit-test
-    
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 17
-        
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v4.2.3
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
-        
-    - name: Cache Maven packages
-      uses: actions/cache@v4.2.3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-        
-    - name: Build and analyze
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_AUTOGLASS }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.qualitygate.wait=true -Dsonar.projectKey=devopsfiap_devopsimpacta
-       
-  build:
-    runs-on: ubuntu-latest
-    needs: code-analisys
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Build with Maven
-      run: mvn -B package -DskipTests --file pom.xml      
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: target/
-    - name: Upload JAR
-        #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
-      uses: actions/upload-artifact@v4.4.0
-      with:
-        #Set artifact name
-        name: artifact
-        #From this path
-        path: target/demo-0.0.2.7-SNAPSHOT.jar
     
     - name: Package
       run: mvn package  
          
-  deploy-STG:
+  publish:
     runs-on: ubuntu-latest
     needs: build
-    environment:
-      name: stg
-    
-    if: github.ref == 'refs/heads/develop'
-    steps:
-      - name: Deploy 
-        shell: bash
-        run: |
-          echo "Deploy STG"
-          
-  Smoketest:
-    runs-on: ubuntu-latest
-    needs: deploy-STG
-    
-    if: github.ref == 'refs/heads/develop'
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v3
-      - name: Deploy 
-        shell: bash
-        run: |
-          sh 'src/main/scripts/smoketest.sh'
-          
-  testeIntegrados:
-    runs-on: ubuntu-latest
-    needs: Smoketest
-    
-    if: github.ref == 'refs/heads/develop'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Deploy 
-        shell: bash
-        run: |
-          sh 'src/main/scripts/testeIntegrado.sh'
-  
-  deploy-Pre:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release'
-    environment:
-      name: pre
-    needs: build
-    steps:
-      - name: Deploy 
-        shell: bash
-        run: |
-          echo "Deploy PRE"
-  
-  SmoketestPre:
-    runs-on: ubuntu-latest
-    needs: deploy-Pre
-    
-    if: github.ref == 'refs/heads/release'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Deploy 
-        shell: bash
-        run: |
-          sh 'src/main/scripts/smoketest.sh'          
-          
-  testeFuncionais:
-    runs-on: ubuntu-latest
-    needs: SmoketestPre
-    
-    if: github.ref == 'refs/heads/release'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Deploy 
-        shell: bash
-        run: |
-          sh 'src/main/scripts/testesFuncionais.sh'  
-          
-  deploy-Prod:
-    runs-on: ubuntu-latest
-    
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: prod
-    needs: build
-    steps:
-      - name: Deploy 
-        shell: bash
-        run: |
-          echo "Deploy PROD" 
-  
-  deploy-azure:
-    needs: build  
-    name: Deploy-azure
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'    
-    environment:
-      name: AZURE-PRO        
-      url: https://fiapapp.azurewebsites.net/
-    steps:
-       - name: Download JAR
-         uses: actions/download-artifact@v4
-         with:
-           name: artifact
-           path: target/   
-       - name: DeployAzure   
-         uses: azure/webapps-deploy@v2
-         with:
-            app-name: FiapApp
-            publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} 
-            package: '${{ github.workspace }}/target/*.jar'
-
-  deploy-aws:
-    needs: build  
-    name: Deploy-aws
-    runs-on: ubuntu-latest
-   #if: github.ref == 'refs/heads/main'
-    environment:
-      name: AWS-PRO
-      url: http://devopsfiap-on-env1.eba-nababm5k.us-east-1.elasticbeanstalk.com/
-    steps:
-      - name: Download JAR
-        uses: actions/download-artifact@v4
+      - uses: actions/setup-java@v3
         with:
-          name: artifact
-          path: target/
-        #Deploy the artifact (JAR) into AWS Beanstalk
-      - name: Display structure of downloaded files
-        run: ls -R
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v21
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         # aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
-          wait_for_environment_recovery: 90
-          use_existing_version_if_available: false
-          application_name: DevopsFiap-on
-          environment_name: devopsfiap-on-env1
-          version_label: ${{github.SHA}}
-          region: us-east-1
-          deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar              
+          java-version: '11'
+          distribution: 'adopt'
+          package: '*.jar'
+      - name: Publish package
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
