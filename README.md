@@ -3,6 +3,6 @@
 
 
 
-Versao prod 2.3
+Versao release 1.0
 
 
