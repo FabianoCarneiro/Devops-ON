@@ -61,4 +61,10 @@ public class DemoApplication {
 	String cldr(){
 		return "Turma 9 MBA Cloud";
 	}
+
+	@GetMapping("/7DVPR")
+	String DVP7(){
+		return "Turma 7 MBA DEVOPS";
+	}
+	
 }	
