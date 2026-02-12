@@ -4,6 +4,39 @@ on:
   push:
   workflow_dispatch:
 jobs:
+  security:
+    runs-on: ubuntu-latest   
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    
+    steps:
+      - uses: actions/checkout@master
+          
+      - name: Set up Snyk CLI to check for security issues
+        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: auth
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Snyk Code test
+        #run: snyk test --all-projects --org=aef0364d-d779-4277-a254-86c9a1273e6c
+        run: snyk code test 
+          
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif --severity-threshold=high
+          
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
   unit-test:
     runs-on: ubuntu-latest
     
