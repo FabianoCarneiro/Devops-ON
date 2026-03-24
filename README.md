@@ -3,6 +3,6 @@
 
 
 
-Versao release 1.7
+Versao release 1.8
 
 
