@@ -68,7 +68,7 @@ public class DemoApplication {
 	}
 	
 	@GetMapping("/UFSCAR")
-	String DVP7(){
+	String UFSCAR(){
 		return "Turma UFSCAR 2026";
 	}
 	
