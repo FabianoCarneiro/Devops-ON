@@ -3,6 +3,6 @@
 
 
 
-Versao release 1.11
+Versao release 1.12
 
 
