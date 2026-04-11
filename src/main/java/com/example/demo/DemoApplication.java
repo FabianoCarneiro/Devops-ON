@@ -67,4 +67,9 @@ public class DemoApplication {
 		return "Turma 7 MBA DEVOPS";
 	}
 	
+	@GetMapping("/UFSCAR")
+	String DVP7(){
+		return "Turma UFSCAR 2026";
+	}
+	
 }	
