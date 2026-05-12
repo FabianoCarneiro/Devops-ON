@@ -71,5 +71,10 @@ public class DemoApplication {
 	String UFSCAR(){
 		return "Turma UFSCAR 2026";
 	}
+
+	@GetMapping("/fiap")
+	String fiap(){
+		return "bem vindo a pos tech FIAP";
+	}
 	
 }	
