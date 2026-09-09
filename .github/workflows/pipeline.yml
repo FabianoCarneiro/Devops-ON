@@ -70,8 +70,13 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
+    - name: Set up JDK 21
+      uses: actions/setup-java@v6
+      with:
+        java-version: 21
+        distribution: 'temurin'
     - name: Build with Maven
-      run: mvn -B package -DskipTests --file pom.xml      
+      run: mvn -B package -DskipTests --file pom.xml
     - name: Display structure of downloaded files
       run: ls -R
       working-directory: target/
@@ -96,10 +101,10 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v6
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          java-version: 21
+          distribution: 'temurin'
           package: '*.jar'
       - name: Publish package
         run: mvn --batch-mode deploy
