@@ -4,64 +4,35 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  security:
-    runs-on: ubuntu-latest   
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    
-    steps:
-      - uses: actions/checkout@master
-          
-      - name: Set up Snyk CLI to check for security issues
-        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      - name: auth
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
-      
-      - name: Snyk Code test
-        #run: snyk test --all-projects --org=aef0364d-d779-4277-a254-86c9a1273e6c
-        run: snyk code test 
-          
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
-        continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --sarif-file-output=snyk.sarif --severity-threshold=high
-          
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk.sarif
-  unit-test:
+Analysis:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-      
-    - run: mvn test  
-    - name: Generate JaCoCo Badge
-      id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.0.1
-    - name: Log coverage percentage
-      run: |
-        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"    
-    - name: Upload JaCoCo coverage report
-      uses: actions/upload-artifact@v4.4.0
-      with:
-        name: jacoco-report
-        path: target/site/jacoco
-        
+      - name: Analyze with SonarCloud
+
+        # You can pin the exact commit or the version.
+        # uses: SonarSource/sonarcloud-github-action@v2.2.0
+        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_AUTOGLASS }}  # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+        with:
+          # Additional arguments for the SonarScanner CLI
+          args:
+            # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
+            # mandatory
+            -Dsonar.projectKey=devopsfiap_devopsimpacta
+            -Dsonar.organization=devopsmbalearning
+            # Comma-separated paths to directories containing main source files.
+            #-Dsonar.sources= # optional, default is project base directory
+            # Comma-separated paths to directories containing test source files.
+            #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
+            # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
+            #-Dsonar.verbose= # optional, default is false
+          # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
+          projectBaseDir: .  
+          
   code-analisys:
     runs-on: ubuntu-latest
-    needs: unit-test
     steps:
     - uses: actions/checkout@v2
       with:
