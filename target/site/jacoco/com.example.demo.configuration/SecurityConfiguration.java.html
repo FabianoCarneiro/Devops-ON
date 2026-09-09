@@ -23,7 +23,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-<span class="nc" id="L26">public class SecurityConfiguration extends WebSecurityConfigurerAdapter {</span>
+<span class="fc" id="L26">public class SecurityConfiguration extends WebSecurityConfigurerAdapter {</span>
 
   @Autowired
   UserAuthService userAuthService;
@@ -37,7 +37,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 
 
-<span class="nc" id="L40">    http.httpBasic().authenticationEntryPoint(new AuthenticationEntryPoint(){</span>
+<span class="fc" id="L40">    http.httpBasic().authenticationEntryPoint(new AuthenticationEntryPoint(){</span>
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
@@ -45,25 +45,25 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 <span class="nc" id="L45">        }</span>
     });
 
-<span class="nc" id="L48">    http</span>
-<span class="nc" id="L49">      .authorizeRequests()</span>
-<span class="nc" id="L50">        .antMatchers(&quot;/secured&quot;).authenticated()</span>
-<span class="nc" id="L51">        .antMatchers(HttpMethod.PUT, &quot;/api/1.0/users/{id}&quot;).authenticated()</span>
-<span class="nc" id="L52">      .and()</span>
-<span class="nc" id="L53">      .authorizeRequests().anyRequest().permitAll();</span>
+<span class="fc" id="L48">    http</span>
+<span class="fc" id="L49">      .authorizeRequests()</span>
+<span class="fc" id="L50">        .antMatchers(&quot;/secured&quot;).authenticated()</span>
+<span class="fc" id="L51">        .antMatchers(HttpMethod.PUT, &quot;/api/1.0/users/{id}&quot;).authenticated()</span>
+<span class="fc" id="L52">      .and()</span>
+<span class="fc" id="L53">      .authorizeRequests().anyRequest().permitAll();</span>
 
-<span class="nc" id="L55">    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);</span>
-<span class="nc" id="L56">  }</span>
+<span class="fc" id="L55">    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);</span>
+<span class="fc" id="L56">  }</span>
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-<span class="nc" id="L60">    auth.userDetailsService(userAuthService).passwordEncoder(passwordEncoder());</span>
-<span class="nc" id="L61">  }</span>
+<span class="fc" id="L60">    auth.userDetailsService(userAuthService).passwordEncoder(passwordEncoder());</span>
+<span class="fc" id="L61">  }</span>
 
   @Bean
   PasswordEncoder passwordEncoder(){
-<span class="nc" id="L65">    return new BCryptPasswordEncoder();</span>
+<span class="fc" id="L65">    return new BCryptPasswordEncoder();</span>
   }
   
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

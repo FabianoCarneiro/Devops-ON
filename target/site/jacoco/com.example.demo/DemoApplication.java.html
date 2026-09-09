@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-<span class="nc" id="L16">public class DemoApplication {</span>
+<span class="fc" id="L16">public class DemoApplication {</span>
 
 	public static void main(String[] args) {
 <span class="nc" id="L19">		SpringApplication.run(DemoApplication.class, args);</span>
@@ -67,5 +67,10 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="nc" id="L67">		return &quot;Turma 7 MBA DEVOPS&quot;;</span>
 	}
 	
+	@GetMapping(&quot;/UFSCAR&quot;)
+	String UFSCAR(){
+<span class="nc" id="L72">		return &quot;Turma UFSCAR 2026&quot;;</span>
+	}
+	
 }	
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
